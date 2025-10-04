@@ -1,0 +1,95 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradientes para os cards -->
+    <linearGradient id="chatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5B73FF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ttsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFE66D;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="sttGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A8E6CF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#88D8C0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="moderationGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667EEA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764BA2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="imageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F093FB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5576C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aboutGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4FACFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00F2FE;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1a1a1a"/>
+  
+  <!-- Grid de Cards -->
+  <!-- Linha 1 -->
+  <!-- Chat Completions -->
+  <rect x="20" y="20" width="240" height="120" rx="15" fill="url(#chatGradient)"/>
+  <text x="140" y="60" text-anchor="middle" fill="white" font-size="16" font-weight="bold">💬</text>
+  <text x="140" y="80" text-anchor="middle" fill="white" font-size="14">Chat AI</text>
+  
+  <rect x="20" y="150" width="240" height="60" rx="10" fill="#2a2a2a"/>
+  <text x="30" y="170" fill="white" font-size="12" font-weight="bold">Chat Completions</text>
+  <text x="30" y="185" fill="#ccc" font-size="10">Converse com IA avançada para obter respostas</text>
+  <text x="30" y="195" fill="#ccc" font-size="10">inteligentes e contextualmente relevantes.</text>
+  
+  <!-- Text-to-Speech -->
+  <rect x="280" y="20" width="240" height="120" rx="15" fill="url(#ttsGradient)"/>
+  <text x="400" y="60" text-anchor="middle" fill="white" font-size="16" font-weight="bold">🔊</text>
+  <text x="400" y="80" text-anchor="middle" fill="white" font-size="14">TTS</text>
+  
+  <rect x="280" y="150" width="240" height="60" rx="10" fill="#2a2a2a"/>
+  <text x="290" y="170" fill="white" font-size="12" font-weight="bold">Text-to-Speech</text>
+  <text x="290" y="185" fill="#ccc" font-size="10">Converta texto em fala natural com vozes realistas</text>
+  <text x="290" y="195" fill="#ccc" font-size="10">e de alta qualidade.</text>
+  
+  <!-- Speech-to-Text -->
+  <rect x="540" y="20" width="240" height="120" rx="15" fill="url(#sttGradient)"/>
+  <text x="660" y="60" text-anchor="middle" fill="white" font-size="16" font-weight="bold">🎤</text>
+  <text x="660" y="80" text-anchor="middle" fill="white" font-size="14">STT</text>
+  
+  <rect x="540" y="150" width="240" height="60" rx="10" fill="#2a2a2a"/>
+  <text x="550" y="170" fill="white" font-size="12" font-weight="bold">Speech-to-Text</text>
+  <text x="550" y="185" fill="#ccc" font-size="10">Transcreva áudio em texto com precisão usando</text>
+  <text x="550" y="195" fill="#ccc" font-size="10">tecnologia de reconhecimento de voz.</text>
+  
+  <!-- Linha 2 -->
+  <!-- Content Moderation -->
+  <rect x="20" y="230" width="240" height="120" rx="15" fill="url(#moderationGradient)"/>
+  <text x="140" y="270" text-anchor="middle" fill="white" font-size="16" font-weight="bold">🛡️</text>
+  <text x="140" y="290" text-anchor="middle" fill="white" font-size="14">Moderação</text>
+  
+  <rect x="20" y="360" width="240" height="60" rx="10" fill="#2a2a2a"/>
+  <text x="30" y="380" fill="white" font-size="12" font-weight="bold">Content Moderation</text>
+  <text x="30" y="395" fill="#ccc" font-size="10">Analise e modere conteúdo automaticamente para</text>
+  <text x="30" y="405" fill="#ccc" font-size="10">manter ambientes seguros e apropriados.</text>
+  
+  <!-- Image Generation -->
+  <rect x="280" y="230" width="240" height="120" rx="15" fill="url(#imageGradient)"/>
+  <text x="400" y="270" text-anchor="middle" fill="white" font-size="16" font-weight="bold">🎨</text>
+  <text x="400" y="290" text-anchor="middle" fill="white" font-size="14">Geração</text>
+  
+  <rect x="280" y="360" width="240" height="60" rx="10" fill="#2a2a2a"/>
+  <text x="290" y="380" fill="white" font-size="12" font-weight="bold">Image Generation</text>
+  <text x="290" y="395" fill="#ccc" font-size="10">Crie imagens únicas e personalizadas usando</text>
+  <text x="290" y="405" fill="#ccc" font-size="10">inteligência artificial avançada.</text>
+  
+  <!-- Sobre a Plataforma -->
+  <rect x="540" y="230" width="240" height="120" rx="15" fill="url(#aboutGradient)"/>
+  <text x="660" y="270" text-anchor="middle" fill="white" font-size="16" font-weight="bold">👤</text>
+  <text x="660" y="290" text-anchor="middle" fill="white" font-size="14">Sobre</text>
+  
+  <rect x="540" y="360" width="240" height="60" rx="10" fill="#2a2a2a"/>
+  <text x="550" y="380" fill="white" font-size="12" font-weight="bold">Sobre a Plataforma</text>
+  <text x="550" y="395" fill="#ccc" font-size="10">Conheça mais sobre nossa plataforma de IA e as</text>
+  <text x="550" y="405" fill="#ccc" font-size="10">tecnologias que utilizamos.</text>
+</svg>
