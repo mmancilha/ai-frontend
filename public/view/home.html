@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+  <!-- ========================================== -->
+  <!-- HEAD SECTION - Meta tags, CSS e Título   -->
+  <!-- ========================================== -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plataforma de IA</title>
+
+    <!-- Google Fonts - Tipografia Elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom Styles -->
+    <style>
+      /* ========================================== */
+      /* LAYOUT & STRUCTURE - Layout e Estrutura   */
+      /* ========================================== */
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #0d0d0d 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        transition: all 0.3s ease;
+      }
+
+      main {
+        flex: 1;
+        padding: 1rem 0;
+        min-height: calc(100vh - 200px);
+      }
+
+      /* ========================================== */
+      /* HERO SECTION - Seção Principal            */
+      /* ========================================== */
+      .hero-section {
+        background: linear-gradient(135deg, rgba(64, 64, 64, 0.1) 0%, rgba(96, 96, 96, 0.1) 100%);
+        border-radius: 15px;
+        padding: 2rem 0 0.2rem 0;
+        margin-bottom: 1rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #e0e0e0, #b0b0b0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+        text-align: center;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 2rem;
+        font-weight: 400;
+        line-height: 1.4;
+        text-align: center;
+        opacity: 0.9;
+      }
+
+      /* ========================================== */
+      /* CARDS & COMPONENTS - Cards e Componentes  */
+      /* ========================================== */
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(128, 128, 128, 0.3);
+      }
+
+      .card-img-top {
+        border-radius: 15px 15px 0 0;
+        transition: all 0.3s ease;
+      }
+
+      .card-body {
+        padding: 1rem;
+      }
+
+      .card-title {
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .card-text {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.5;
+      }
+
+      /* ========================================== */
+      /* BUTTONS - Botões                          */
+      /* ========================================== */
+      .btn-custom, a.btn-custom {
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .btn-custom::before, a.btn-custom::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .btn-custom:hover::before, a.btn-custom:hover::before {
+        left: 100%;
+      }
+
+      .btn-success.btn-custom, a.btn-success.btn-custom {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        color: white;
+      }
+
+      .btn-success.btn-custom:hover, a.btn-success.btn-custom:hover {
+        background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+
+      .btn-warning.btn-custom, a.btn-warning.btn-custom {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        color: white;
+      }
+
+      .btn-warning.btn-custom:hover, a.btn-warning.btn-custom:hover {
+        background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+
+      .btn-info.btn-custom, a.btn-info.btn-custom {
+        background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+        box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+        color: white;
+      }
+
+      .btn-info.btn-custom:hover, a.btn-info.btn-custom:hover {
+        background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+
+      .btn-primary.btn-custom, a.btn-primary.btn-custom {
+        background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        color: white;
+      }
+
+      .btn-primary.btn-custom:hover, a.btn-primary.btn-custom:hover {
+        background: linear-gradient(135deg, #6610f2 0%, #e83e8c 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+
+      /* Estilo específico para links que devem parecer botões */
+      a.btn {
+        text-decoration: none !important;
+      }
+
+      a.btn:focus, a.btn:active {
+        text-decoration: none !important;
+        outline: none;
+      }
+
+      /* ========================================== */
+      /* THEME TOGGLE - Botão de Tema             */
+      /* ========================================== */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        border-radius: 50px;
+        padding: 0.5rem 1rem;
+        border: none;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      /* ========================================== */
+      /* ANIMATIONS - Animações                    */
+      /* ========================================== */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      /* ========================================== */
+      /* FOOTER - Rodapé                          */
+      /* ========================================== */
+      footer {
+        background: rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+      }
+
+      footer p {
+        font-weight: 400;
+        font-size: 0.85rem;
+        opacity: 0.8;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ========================================== */
+      /* RESPONSIVE - Responsividade               */
+      /* ========================================== */
+      @media (max-width: 768px) {
+        .hero-section {
+          padding: 2rem 0 1rem 0;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .theme-toggle {
+          top: 10px;
+          right: 10px;
+          padding: 0.4rem 0.8rem;
+        }
+
+        .card-body {
+          padding: 0.75rem;
+        }
+
+        .btn-custom {
+          padding: 0.45rem 1.2rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        main {
+          padding: 0.5rem 0;
+        }
+
+        .hero-section {
+          padding: 1.5rem 0 0.75rem 0;
+          margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+          font-size: 1.75rem;
+        }
+
+        .section-subtitle {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- ========================================== -->
+  <!-- BODY SECTION - Conteúdo Principal        -->
+  <!-- ========================================== -->
+  <body>
+    <!-- ========================================== -->
+    <!-- HERO SECTION - Seção de Apresentação     -->
+    <!-- ========================================== -->
+    <section class="hero-section fade-in-up">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1 class="section-title">Plataforma de IA</h1>
+            <p class="section-subtitle">
+              Explore o poder da Inteligência Artificial com essa ferramenta.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT - Conteúdo Principal        -->
+    <!-- ========================================== -->
+    <main class="container">
+      <!-- ========================================== -->
+      <!-- PRIMEIRA LINHA DE CARDS - AI Tools       -->
+      <!-- ========================================== -->
+      <section class="row g-4 mb-5 fade-in-up">
+        <!-- Card: Chat Completions -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card h-100">
+            <svg
+              class="card-img-top"
+              width="100%"
+              height="200"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Chat Completions"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Chat Completions</title>
+              <defs>
+                <linearGradient
+                  id="chatGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #4facfe; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #00f2fe; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#chatGradient)" />
+              <text
+                x="50%"
+                y="45%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="16"
+                font-weight="bold"
+              >
+                💬
+              </text>
+              <text
+                x="50%"
+                y="60%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="14"
+              >
+                Chat AI
+              </text>
+            </svg>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Chat Completions</h5>
+              <p class="card-text flex-grow-1">
+                Converse com IA avançada para obter respostas inteligentes e
+                contextualmente relevantes.
+              </p>
+              <a href="/chat" class="btn btn-success btn-custom mt-auto">
+                <i class="bi bi-chat-dots me-2"></i>Iniciar Chat
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Text-to-Speech -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card h-100">
+            <svg
+              class="card-img-top"
+              width="100%"
+              height="200"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Text to Speech"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Text to Speech</title>
+              <defs>
+                <linearGradient
+                  id="ttsGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #fa709a; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #fee140; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#ttsGradient)" />
+              <text
+                x="50%"
+                y="45%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="16"
+                font-weight="bold"
+              >
+                🔊
+              </text>
+              <text
+                x="50%"
+                y="60%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="14"
+              >
+                TTS
+              </text>
+            </svg>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Text-to-Speech</h5>
+              <p class="card-text flex-grow-1">
+                Converta texto em fala natural com vozes realistas e de alta
+                qualidade.
+              </p>
+              <a href="/tts" class="btn btn-warning btn-custom mt-auto">
+                <i class="bi bi-volume-up me-2"></i>Gerar Áudio
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Speech-to-Text -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card h-100">
+            <svg
+              class="card-img-top"
+              width="100%"
+              height="200"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Speech to Text"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Speech to Text</title>
+              <defs>
+                <linearGradient
+                  id="sttGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #a8edea; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #fed6e3; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#sttGradient)" />
+              <text
+                x="50%"
+                y="45%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="16"
+                font-weight="bold"
+              >
+                🎤
+              </text>
+              <text
+                x="50%"
+                y="60%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="14"
+              >
+                STT
+              </text>
+            </svg>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Speech-to-Text</h5>
+              <p class="card-text flex-grow-1">
+                Transcreva áudio em texto com precisão usando tecnologia de
+                reconhecimento de voz.
+              </p>
+              <a href="/stt" class="btn btn-info btn-custom mt-auto">
+                <i class="bi bi-mic me-2"></i>Transcrever
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SEGUNDA LINHA DE CARDS - Advanced Tools  -->
+      <!-- ========================================== -->
+      <section class="row g-4 mb-5 fade-in-up">
+        <!-- Card: Moderations -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card h-100">
+            <svg
+              class="card-img-top"
+              width="100%"
+              height="200"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Content Moderation"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Content Moderation</title>
+              <defs>
+                <linearGradient
+                  id="modGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #667eea; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #764ba2; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#modGradient)" />
+              <text
+                x="50%"
+                y="45%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="16"
+                font-weight="bold"
+              >
+                🛡️
+              </text>
+              <text
+                x="50%"
+                y="60%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="14"
+              >
+                Moderação
+              </text>
+            </svg>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Content Moderation</h5>
+              <p class="card-text flex-grow-1">
+                Analise e modere conteúdo automaticamente para manter ambientes
+                seguros e apropriados.
+              </p>
+              <a href="/moderation" class="btn btn-success btn-custom mt-auto">
+                <i class="bi bi-shield-check me-2"></i>Moderar
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Image Generation -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card h-100">
+            <svg
+              class="card-img-top"
+              width="100%"
+              height="200"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Image Generation"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Image Generation</title>
+              <defs>
+                <linearGradient
+                  id="imgGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #f093fb; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #f5576c; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#imgGradient)" />
+              <text
+                x="50%"
+                y="45%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="16"
+                font-weight="bold"
+              >
+                🎨
+              </text>
+              <text
+                x="50%"
+                y="60%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="14"
+              >
+                Geração
+              </text>
+            </svg>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Image Generation</h5>
+              <p class="card-text flex-grow-1">
+                Crie imagens únicas e personalizadas usando inteligência
+                artificial avançada.
+              </p>
+              <a
+                href="/imagegeneration"
+                class="btn btn-primary btn-custom mt-auto"
+              >
+                <i class="bi bi-palette me-2"></i>Gerar Imagem
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: About Me -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card h-100">
+            <svg
+              class="card-img-top"
+              width="100%"
+              height="200"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="About Me"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>About Me</title>
+              <defs>
+                <linearGradient
+                  id="aboutGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #4facfe; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #00f2fe; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#aboutGradient)" />
+              <text
+                x="50%"
+                y="45%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="16"
+                font-weight="bold"
+              >
+                👤
+              </text>
+              <text
+                x="50%"
+                y="60%"
+                fill="white"
+                dy=".3em"
+                text-anchor="middle"
+                font-size="14"
+              >
+                Sobre
+              </text>
+            </svg>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Sobre a Plataforma</h5>
+              <p class="card-text flex-grow-1">
+                Conheça mais sobre nossa plataforma de IA e as tecnologias que
+                utilizamos.
+              </p>
+              <a href="/sobre" class="btn btn-primary btn-custom mt-auto">
+                <i class="bi bi-info-circle me-2"></i>Saiba Mais
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION - Rodapé                  -->
+    <!-- ========================================== -->
+    <footer class="container-fluid bg-body-secondary py-4 mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p class="mb-0">
+              &copy; 2025 AI Platform. Feito com 💜 por Maycon Mancilha.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- SCRIPTS SECTION - JavaScript             -->
+    <!-- ========================================== -->
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // ========================================
+      // LOAD SAVED THEME ON PAGE LOAD
+      // ========================================
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        const html = document.documentElement;
+
+        html.setAttribute("data-bs-theme", savedTheme);
+
+        // Adicionar animações aos elementos
+        const elements = document.querySelectorAll('.fade-in-up');
+        elements.forEach((el, index) => {
+          el.style.animationDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // ========================================
+      // SMOOTH SCROLL FOR ANCHOR LINKS
+      // ========================================
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
