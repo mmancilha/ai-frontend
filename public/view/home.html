@@ -9,9 +9,12 @@
     <title>Plataforma de IA</title>
 
     <!-- Google Fonts - Tipografia Elegante -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap CSS -->
     <link
@@ -33,8 +36,14 @@
       /* LAYOUT & STRUCTURE - Layout e Estrutura   */
       /* ========================================== */
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #0d0d0d 100%);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 50%,
+          #0d0d0d 100%
+        );
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -54,7 +63,11 @@
       /* HERO SECTION - Seção Principal            */
       /* ========================================== */
       .hero-section {
-        background: linear-gradient(135deg, rgba(64, 64, 64, 0.1) 0%, rgba(96, 96, 96, 0.1) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.1) 0%,
+          rgba(96, 96, 96, 0.1) 100%
+        );
         border-radius: 15px;
         padding: 2rem 0 0.2rem 0;
         margin-bottom: 1rem;
@@ -130,7 +143,8 @@
       /* ========================================== */
       /* BUTTONS - Botões                          */
       /* ========================================== */
-      .btn-custom, a.btn-custom {
+      .btn-custom,
+      a.btn-custom {
         border-radius: 25px;
         padding: 0.5rem 1.5rem;
         font-weight: 600;
@@ -147,28 +161,37 @@
         cursor: pointer;
       }
 
-      .btn-custom::before, a.btn-custom::before {
-        content: '';
+      .btn-custom::before,
+      a.btn-custom::before {
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
         transition: left 0.5s;
       }
 
-      .btn-custom:hover::before, a.btn-custom:hover::before {
+      .btn-custom:hover::before,
+      a.btn-custom:hover::before {
         left: 100%;
       }
 
-      .btn-success.btn-custom, a.btn-success.btn-custom {
+      .btn-success.btn-custom,
+      a.btn-success.btn-custom {
         background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         color: white;
       }
 
-      .btn-success.btn-custom:hover, a.btn-success.btn-custom:hover {
+      .btn-success.btn-custom:hover,
+      a.btn-success.btn-custom:hover {
         background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
@@ -176,13 +199,15 @@
         text-decoration: none;
       }
 
-      .btn-warning.btn-custom, a.btn-warning.btn-custom {
+      .btn-warning.btn-custom,
+      a.btn-warning.btn-custom {
         background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
         box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         color: white;
       }
 
-      .btn-warning.btn-custom:hover, a.btn-warning.btn-custom:hover {
+      .btn-warning.btn-custom:hover,
+      a.btn-warning.btn-custom:hover {
         background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
@@ -190,13 +215,15 @@
         text-decoration: none;
       }
 
-      .btn-info.btn-custom, a.btn-info.btn-custom {
+      .btn-info.btn-custom,
+      a.btn-info.btn-custom {
         background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
         box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
         color: white;
       }
 
-      .btn-info.btn-custom:hover, a.btn-info.btn-custom:hover {
+      .btn-info.btn-custom:hover,
+      a.btn-info.btn-custom:hover {
         background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
@@ -204,13 +231,15 @@
         text-decoration: none;
       }
 
-      .btn-primary.btn-custom, a.btn-primary.btn-custom {
+      .btn-primary.btn-custom,
+      a.btn-primary.btn-custom {
         background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
         box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         color: white;
       }
 
-      .btn-primary.btn-custom:hover, a.btn-primary.btn-custom:hover {
+      .btn-primary.btn-custom:hover,
+      a.btn-primary.btn-custom:hover {
         background: linear-gradient(135deg, #6610f2 0%, #e83e8c 100%);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
@@ -223,7 +252,8 @@
         text-decoration: none !important;
       }
 
-      a.btn:focus, a.btn:active {
+      a.btn:focus,
+      a.btn:active {
         text-decoration: none !important;
         outline: none;
       }
@@ -251,12 +281,14 @@
       }
 
       /* ========================================== */
-      /* ANIMATIONS - Animações                    */
+      /* SMOOTH PAGE TRANSITIONS & ANIMATIONS      */
       /* ========================================== */
-      @keyframes fadeInUp {
+
+      /* Transição de entrada da página */
+      @keyframes pageEnter {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
@@ -264,8 +296,75 @@
         }
       }
 
+      /* Animação suave para elementos */
+      @keyframes smoothFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animação para cards */
+      @keyframes cardReveal {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      /* Transição de saída da página */
+      @keyframes pageExit {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Aplicação das animações */
+      .page-enter {
+        animation: pageEnter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+
+      .page-exit {
+        animation: pageExit 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+      }
+
+      .smooth-fade-in {
+        opacity: 0;
+        animation: smoothFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          forwards;
+      }
+
+      .card-reveal {
+        opacity: 0;
+        animation: cardReveal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      /* Hover suave para cards */
+      .card {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Manter compatibilidade com fade-in-up existente */
       .fade-in-up {
-        animation: fadeInUp 0.6s ease-out;
+        animation: smoothFadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
       /* ========================================== */
@@ -338,11 +437,11 @@
   <!-- ========================================== -->
   <!-- BODY SECTION - Conteúdo Principal        -->
   <!-- ========================================== -->
-  <body>
+  <body class="page-enter">
     <!-- ========================================== -->
     <!-- HERO SECTION - Seção de Apresentação     -->
     <!-- ========================================== -->
-    <section class="hero-section fade-in-up">
+    <section class="hero-section smooth-fade-in">
       <div class="container">
         <div class="row">
           <div class="col-12 text-center">
@@ -362,7 +461,7 @@
       <!-- ========================================== -->
       <!-- PRIMEIRA LINHA DE CARDS - AI Tools       -->
       <!-- ========================================== -->
-      <section class="row g-4 mb-5 fade-in-up">
+      <section class="row g-4 mb-5 card-reveal">
         <!-- Card: Chat Completions -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card h-100">
@@ -569,9 +668,9 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- SEGUNDA LINHA DE CARDS - Advanced Tools  -->
+      <!-- SEGUNDA LINHA DE CARDS - More AI Tools   -->
       <!-- ========================================== -->
-      <section class="row g-4 mb-5 fade-in-up">
+      <section class="row g-4 mb-5 card-reveal">
         <!-- Card: Moderations -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card h-100">
@@ -810,7 +909,7 @@
     <!-- Custom JavaScript -->
     <script>
       // ========================================
-      // LOAD SAVED THEME ON PAGE LOAD
+      // SMOOTH PAGE TRANSITIONS & ANIMATIONS
       // ========================================
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme") || "dark";
@@ -818,10 +917,49 @@
 
         html.setAttribute("data-bs-theme", savedTheme);
 
-        // Adicionar animações aos elementos
-        const elements = document.querySelectorAll('.fade-in-up');
-        elements.forEach((el, index) => {
-          el.style.animationDelay = `${index * 0.1}s`;
+        // Animações escalonadas mais suaves
+        const cardSections = document.querySelectorAll(".card-reveal");
+        cardSections.forEach((section, sectionIndex) => {
+          const cards = section.querySelectorAll(".card");
+          cards.forEach((card, cardIndex) => {
+            card.style.animationDelay = `${
+              sectionIndex * 0.16 + cardIndex * 0.08
+            }s`;
+          });
+        });
+
+        // Animações suaves para elementos fade-in
+        const fadeElements = document.querySelectorAll(
+          ".smooth-fade-in, .fade-in-up"
+        );
+        fadeElements.forEach((el, index) => {
+          el.style.animationDelay = `${index * 0.06}s`;
+        });
+
+        // Interceptar navegação para adicionar transições de saída
+        const links = document.querySelectorAll("a[href]");
+        links.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+
+            // Verificar se é um link interno da aplicação
+            if (
+              href &&
+              !href.startsWith("#") &&
+              !href.startsWith("http") &&
+              !href.includes("mailto")
+            ) {
+              e.preventDefault();
+
+              // Adicionar classe de saída
+              document.body.classList.add("page-exit");
+
+              // Navegar após a animação
+              setTimeout(() => {
+                window.location.href = href;
+              }, 500);
+            }
+          });
         });
       });
 

@@ -9,9 +9,12 @@
     <title>Sobre - Plataforma de IA</title>
 
     <!-- Google Fonts - Tipografia Elegante -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap CSS -->
     <link
@@ -33,8 +36,14 @@
       /* LAYOUT & STRUCTURE - Layout e Estrutura   */
       /* ========================================== */
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #0d0d0d 100%);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 50%,
+          #0d0d0d 100%
+        );
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -54,7 +63,11 @@
       /* HERO SECTION - Seção Principal            */
       /* ========================================== */
       .hero-section {
-        background: linear-gradient(135deg, rgba(64, 64, 64, 0.1) 0%, rgba(96, 96, 96, 0.1) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.1) 0%,
+          rgba(96, 96, 96, 0.1) 100%
+        );
         border-radius: 15px;
         padding: 2rem 0 0.2rem 0;
         margin-bottom: 1rem;
@@ -127,7 +140,8 @@
       /* ========================================== */
       /* BUTTONS - Botões                          */
       /* ========================================== */
-      .btn-custom, a.btn-custom {
+      .btn-custom,
+      a.btn-custom {
         border-radius: 25px;
         padding: 0.5rem 1.5rem;
         font-weight: 600;
@@ -144,28 +158,37 @@
         cursor: pointer;
       }
 
-      .btn-custom::before, a.btn-custom::before {
-        content: '';
+      .btn-custom::before,
+      a.btn-custom::before {
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
         transition: left 0.5s;
       }
 
-      .btn-custom:hover::before, a.btn-custom:hover::before {
+      .btn-custom:hover::before,
+      a.btn-custom:hover::before {
         left: 100%;
       }
 
-      .btn-primary.btn-custom, a.btn-primary.btn-custom {
+      .btn-primary.btn-custom,
+      a.btn-primary.btn-custom {
         background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
         box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         color: white;
       }
 
-      .btn-primary.btn-custom:hover, a.btn-primary.btn-custom:hover {
+      .btn-primary.btn-custom:hover,
+      a.btn-primary.btn-custom:hover {
         background: linear-gradient(135deg, #6610f2 0%, #e83e8c 100%);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
@@ -173,13 +196,15 @@
         text-decoration: none;
       }
 
-      .btn-success.btn-custom, a.btn-success.btn-custom {
+      .btn-success.btn-custom,
+      a.btn-success.btn-custom {
         background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         color: white;
       }
 
-      .btn-success.btn-custom:hover, a.btn-success.btn-custom:hover {
+      .btn-success.btn-custom:hover,
+      a.btn-success.btn-custom:hover {
         background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
@@ -192,7 +217,8 @@
         text-decoration: none !important;
       }
 
-      a.btn:focus, a.btn:active {
+      a.btn:focus,
+      a.btn:active {
         text-decoration: none !important;
         outline: none;
       }
@@ -201,7 +227,11 @@
       /* PROFILE SECTION - Seção de Perfil        */
       /* ========================================== */
       .profile-section {
-        background: linear-gradient(135deg, rgba(64, 64, 64, 0.1) 0%, rgba(96, 96, 96, 0.1) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.1) 0%,
+          rgba(96, 96, 96, 0.1) 100%
+        );
         border-radius: 15px;
         padding: 2rem;
         margin-bottom: 2rem;
@@ -236,12 +266,14 @@
       }
 
       /* ========================================== */
-      /* ANIMATIONS - Animações                    */
+      /* SMOOTH PAGE TRANSITIONS & ANIMATIONS      */
       /* ========================================== */
-      @keyframes fadeInUp {
+
+      /* Transição de entrada da página */
+      @keyframes pageEnter {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
@@ -249,8 +281,76 @@
         }
       }
 
+      /* Animação suave para elementos */
+      @keyframes smoothFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animação para cards */
+      @keyframes cardReveal {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      /* Transição de saída da página */
+      @keyframes pageExit {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Aplicação das animações */
+      .page-enter {
+        animation: pageEnter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+
+      .page-exit {
+        animation: pageExit 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+      }
+
+      .smooth-fade-in {
+        opacity: 0;
+        animation: smoothFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          forwards;
+      }
+
+      .card-reveal {
+        opacity: 0;
+        animation: cardReveal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      /* Manter compatibilidade com fade-in-up existente */
       .fade-in-up {
-        animation: fadeInUp 0.6s ease-out;
+        animation: smoothFadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      /* Hover suave para cards */
+      .card {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(128, 128, 128, 0.3);
       }
 
       /* ========================================== */
@@ -357,22 +457,31 @@
       <section class="profile-section fade-in-up">
         <div class="row">
           <div class="col-12 text-center">
-            <div class="profile-avatar">
-              👨‍💻
-            </div>
+            <div class="profile-avatar">👨‍💻</div>
             <h2 class="card-title">Maycon Mancilha</h2>
             <p class="card-text">
-              <strong>Automation & AI Developer</strong><br>
-              Desenvolvedor focado em resolver problemas de negócio através de automação inteligente, plataformas low-code e IA.
+              <strong>Automation & AI Developer</strong><br />
+              Desenvolvedor focado em resolver problemas de negócio através de
+              automação inteligente, plataformas low-code e IA.
             </p>
             <p class="card-text">
-              Minha jornada na automação começou quando criei um robô para fazer meu próprio trabalho e fui promovido. Essa experiência define minha filosofia: eu não apenas otimizo processos, eu os transformo para liberar o potencial humano para atividades de maior valor.
+              Minha jornada na automação começou quando criei um robô para fazer
+              meu próprio trabalho e fui promovido. Essa experiência define
+              minha filosofia: eu não apenas otimizo processos, eu os transformo
+              para liberar o potencial humano para atividades de maior valor.
             </p>
             <p class="card-text">
-              Com um MBA em Engenharia de Software e uma pós-graduação em Inteligência Artificial & Machine Learning, combino vivência prática com base acadêmica sólida para entregar soluções que geram valor real.
+              Com um MBA em Engenharia de Software e uma pós-graduação em
+              Inteligência Artificial & Machine Learning, combino vivência
+              prática com base acadêmica sólida para entregar soluções que geram
+              valor real.
             </p>
             <div class="mt-3">
-              <a href="https://github.com/mmancilha" target="_blank" class="btn btn-primary btn-custom me-2">
+              <a
+                href="https://github.com/mmancilha"
+                target="_blank"
+                class="btn btn-primary btn-custom me-2"
+              >
                 <i class="bi bi-github me-2"></i>GitHub Profile
               </a>
             </div>
@@ -391,17 +500,36 @@
                 <i class="bi bi-cpu me-2"></i>Sobre a Plataforma de IA
               </h3>
               <p class="card-text">
-                Esta plataforma é uma demonstração prática das capacidades da Inteligência Artificial moderna, oferecendo uma interface intuitiva para interagir com diferentes tecnologias de IA. O projeto integra múltiplas funcionalidades:
+                Esta plataforma é uma demonstração prática das capacidades da
+                Inteligência Artificial moderna, oferecendo uma interface
+                intuitiva para interagir com diferentes tecnologias de IA. O
+                projeto integra múltiplas funcionalidades:
               </p>
               <ul class="card-text">
-                <li><strong>Chat Completions:</strong> Conversas inteligentes com IA avançada</li>
-                <li><strong>Text-to-Speech:</strong> Conversão de texto em fala natural</li>
-                <li><strong>Speech-to-Text:</strong> Transcrição precisa de áudio</li>
-                <li><strong>Content Moderation:</strong> Análise automática de conteúdo</li>
-                <li><strong>Image Generation:</strong> Criação de imagens através de IA</li>
+                <li>
+                  <strong>Chat Completions:</strong> Conversas inteligentes com
+                  IA avançada
+                </li>
+                <li>
+                  <strong>Text-to-Speech:</strong> Conversão de texto em fala
+                  natural
+                </li>
+                <li>
+                  <strong>Speech-to-Text:</strong> Transcrição precisa de áudio
+                </li>
+                <li>
+                  <strong>Content Moderation:</strong> Análise automática de
+                  conteúdo
+                </li>
+                <li>
+                  <strong>Image Generation:</strong> Criação de imagens através
+                  de IA
+                </li>
               </ul>
               <p class="card-text">
-                A plataforma foi desenvolvida com foco na experiência do usuário, utilizando tecnologias web modernas e design responsivo para garantir acessibilidade em diferentes dispositivos.
+                A plataforma foi desenvolvida com foco na experiência do
+                usuário, utilizando tecnologias web modernas e design responsivo
+                para garantir acessibilidade em diferentes dispositivos.
               </p>
             </div>
           </div>
@@ -419,16 +547,30 @@
                 <i class="bi bi-mortarboard me-2"></i>Propósito Acadêmico
               </h3>
               <p class="card-text">
-                Este projeto foi desenvolvido como parte da <strong>pós-graduação em Inteligência Artificial & Machine Learning pela IT Valley School</strong>, com foco em padrões internacionais da indústria.
+                Este projeto foi desenvolvido como parte da
+                <strong
+                  >pós-graduação em Inteligência Artificial & Machine Learning
+                  pela IT Valley School</strong
+                >, com foco em padrões internacionais da indústria.
               </p>
               <p class="card-text">
-                O objetivo é demonstrar a aplicação prática dos conceitos estudados, desde técnicas tradicionais de Machine Learning até Deep Learning avançado, documentando a evolução técnica e os aprendizados durante o curso.
+                O objetivo é demonstrar a aplicação prática dos conceitos
+                estudados, desde técnicas tradicionais de Machine Learning até
+                Deep Learning avançado, documentando a evolução técnica e os
+                aprendizados durante o curso.
               </p>
               <p class="card-text">
-                O repositório completo do projeto acadêmico inclui análises detalhadas de performance, arquitetura de modelos e implementações que demonstram a evolução de 33% para 84% de acurácia em sistemas de análise de emoções.
+                O repositório completo do projeto acadêmico inclui análises
+                detalhadas de performance, arquitetura de modelos e
+                implementações que demonstram a evolução de 33% para 84% de
+                acurácia em sistemas de análise de emoções.
               </p>
               <div class="mt-3">
-                <a href="https://github.com/mmancilha/it-valley-school" target="_blank" class="btn btn-success btn-custom">
+                <a
+                  href="https://github.com/mmancilha/it-valley-school"
+                  target="_blank"
+                  class="btn btn-success btn-custom"
+                >
                   <i class="bi bi-book me-2"></i>Ver Projeto Acadêmico
                 </a>
               </div>
@@ -491,7 +633,9 @@
       <div class="container">
         <div class="row">
           <div class="col-12 text-center">
-            <p>&copy; 2024 Plataforma de IA - Projeto Acadêmico IT Valley School</p>
+            <p>
+              &copy; 2024 Plataforma de IA - Projeto Acadêmico IT Valley School
+            </p>
           </div>
         </div>
       </div>
@@ -512,15 +656,33 @@
       // ========================================== //
       // THEME & ANIMATIONS - Tema e Animações     //
       // ========================================== //
-      
-      // Definir tema padrão como dark
-      document.documentElement.setAttribute('data-bs-theme', 'dark');
 
-      // Aplicar animações com delay
-      document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.fade-in-up');
-        elements.forEach((element, index) => {
+      // Definir tema padrão como dark
+      document.documentElement.setAttribute("data-bs-theme", "dark");
+
+      // Aplicar animações com delay escalonado
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animações para elementos smooth-fade-in
+        const smoothElements = document.querySelectorAll(".smooth-fade-in");
+        smoothElements.forEach((element, index) => {
           element.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Animações para elementos fade-in-up
+        const fadeUpElements = document.querySelectorAll(".fade-in-up");
+        fadeUpElements.forEach((element, index) => {
+          element.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Animações para cards com card-reveal
+        const cardSections = document.querySelectorAll(".card-reveal");
+        cardSections.forEach((section, sectionIndex) => {
+          const cards = section.querySelectorAll(".card");
+          cards.forEach((card, cardIndex) => {
+            card.style.animationDelay = `${
+              (sectionIndex * 3 + cardIndex) * 0.1
+            }s`;
+          });
         });
       });
     </script>
