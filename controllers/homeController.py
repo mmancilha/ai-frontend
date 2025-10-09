@@ -27,7 +27,7 @@ async def index(request: Request):
 @router.get("/chat", response_class=HTMLResponse)
 async def index(request: Request):
     # Abre o arquivo HTML e retorna o conteúdo como resposta HTML
-    with open("public/view/chat2.html", "r", encoding="utf-8") as file:
+    with open("public/view/chat.html", "r", encoding="utf-8") as file:
         html_content = file.read()
     return HTMLResponse(content=html_content)
 
@@ -45,7 +45,7 @@ async def index(request: Request):
         html_content = file.read()
     return HTMLResponse(content=html_content)
 
-@router.get("/sst", response_class=HTMLResponse)
+@router.get("/stt", response_class=HTMLResponse)
 async def index(request: Request):
     # Abre o arquivo HTML e retorna o conteúdo como resposta HTML
     with open("public/view/stt.html", "r", encoding="utf-8") as file:

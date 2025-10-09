@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+  <!-- ========================================== -->
+  <!-- HEAD SECTION - Meta tags, CSS e Título   -->
+  <!-- ========================================== -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Completions - FrontAI</title>
+
+    <!-- Google Fonts - Tipografia Elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom Styles -->
+    <style>
+      /* ========================================== */
+      /* LAYOUT & STRUCTURE - Layout e Estrutura   */
+      /* ========================================== */
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 50%,
+          #0d0d0d 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      main {
+        flex: 1;
+        padding: 1rem 0;
+        min-height: calc(100vh - 200px);
+      }
+
+      /* ========================================== */
+      /* HERO SECTION - Seção Principal            */
+      /* ========================================== */
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.1) 0%,
+          rgba(96, 96, 96, 0.1) 100%
+        );
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #e0e0e0, #b0b0b0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .section-subtitle {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1rem;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      /* ========================================== */
+      /* CHAT CONTAINER - Container Principal      */
+      /* ========================================== */
+      .chat-container {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+        max-height: 600px;
+        min-height: 500px;
+      }
+
+      /* ========================================== */
+      /* CHAT HEADER - Cabeçalho do Chat          */
+      /* ========================================== */
+      .chat-header {
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.2) 0%,
+          rgba(96, 96, 96, 0.2) 100%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      /* ========================================== */
+      /* CHAT MESSAGES - Área de Mensagens        */
+      /* ========================================== */
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      /* Scrollbar personalizada */
+      .chat-messages::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .chat-messages::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+      }
+
+      .chat-messages::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+      }
+
+      .chat-messages::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ========================================== */
+      /* MESSAGE BUBBLES - Bolhas de Mensagem     */
+      /* ========================================== */
+      .message {
+        display: flex;
+        margin-bottom: 1rem;
+        animation: messageSlideIn 0.3s ease-out;
+      }
+
+      .message.user {
+        justify-content: flex-end;
+      }
+
+      .message.ai {
+        justify-content: flex-start;
+      }
+
+      .message-content {
+        max-width: 70%;
+        padding: 0.75rem 1rem;
+        border-radius: 18px;
+        position: relative;
+        word-wrap: break-word;
+        line-height: 1.4;
+      }
+
+      /* Mensagens do usuário */
+      .message.user .message-content {
+        background: linear-gradient(135deg, #6c6c6c 0%, #4a4a4a 100%);
+        color: white;
+        border-bottom-right-radius: 6px;
+        margin-left: 2rem;
+      }
+
+      /* Mensagens da IA */
+      .message.ai .message-content {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom-left-radius: 6px;
+        margin-right: 2rem;
+      }
+
+      /* Avatar/Ícone das mensagens */
+      .message-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      .message.user .message-avatar {
+        background: linear-gradient(135deg, #6c6c6c 0%, #4a4a4a 100%);
+        color: white;
+        order: 2;
+      }
+
+      .message.ai .message-avatar {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* ========================================== */
+      /* TYPING INDICATOR - Indicador de Digitação */
+      /* ========================================== */
+      .typing-indicator {
+        display: none;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        border-bottom-left-radius: 6px;
+        max-width: 70%;
+        margin-right: 2rem;
+        animation: messageSlideIn 0.3s ease-out;
+      }
+
+      .typing-dots {
+        display: flex;
+        gap: 4px;
+        margin-left: 0.5rem;
+      }
+
+      .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        animation: typingPulse 1.4s infinite ease-in-out;
+      }
+
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      /* ========================================== */
+      /* CHAT INPUT - Área de Entrada             */
+      /* ========================================== */
+      .chat-input-container {
+        padding: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .chat-input-wrapper {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-end;
+      }
+
+      .chat-input {
+        flex: 1;
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        resize: none;
+        min-height: 44px;
+        max-height: 120px;
+      }
+
+      .chat-input:focus {
+        border-color: #6c6c6c;
+        box-shadow: 0 0 0 0.2rem rgba(108, 108, 108, 0.25);
+        background: rgba(255, 255, 255, 0.08);
+        outline: none;
+      }
+
+      .chat-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+      }
+
+      /* ========================================== */
+      /* BUTTONS - Botões                          */
+      /* ========================================== */
+      .btn-custom {
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 0.85rem;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        min-width: 44px;
+        height: 44px;
+      }
+
+      .btn-custom::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-custom:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary.btn-custom {
+        background: linear-gradient(135deg, #6c6c6c 0%, #4a4a4a 100%);
+        box-shadow: 0 4px 15px rgba(108, 108, 108, 0.3);
+        color: white;
+      }
+
+      .btn-primary.btn-custom:hover {
+        background: linear-gradient(135deg, #4a4a4a 0%, #333333 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(108, 108, 108, 0.4);
+        color: white;
+      }
+
+      .btn-primary.btn-custom:disabled {
+        background: rgba(108, 108, 108, 0.3);
+        transform: none;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+
+      .btn-outline-secondary.btn-custom {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.8);
+        background: transparent;
+      }
+
+      .btn-outline-secondary.btn-custom:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: white;
+        transform: translateY(-1px);
+      }
+
+      .btn-outline-light.btn-custom {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      }
+
+      .btn-outline-light.btn-custom:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.6);
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+      }
+
+      /* ========================================== */
+      /* ANIMATIONS - Animações                   */
+      /* ========================================== */
+      @keyframes pageEnter {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes messageSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes typingPulse {
+        0%, 60%, 100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        30% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+      }
+
+      @keyframes smoothFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pageExit {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Aplicação das animações */
+      .page-enter {
+        animation: pageEnter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+
+      .page-exit {
+        animation: pageExit 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+      }
+
+      .fade-in-up {
+        animation: smoothFadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      /* ========================================== */
+      /* EMPTY STATE - Estado Vazio               */
+      /* ========================================== */
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
+        padding: 2rem;
+      }
+
+      .empty-state .bi {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      .empty-state h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .empty-state p {
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      /* ========================================== */
+      /* FOOTER - Rodapé                          */
+      /* ========================================== */
+      footer {
+        background: rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+      }
+
+      footer p {
+        font-weight: 400;
+        font-size: 0.85rem;
+        opacity: 0.8;
+        margin: 0;
+      }
+
+      /* ========================================== */
+      /* RESPONSIVE - Responsividade               */
+      /* ========================================== */
+      @media (max-width: 768px) {
+        .hero-section {
+          padding: 1rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .section-subtitle {
+          font-size: 0.85rem;
+        }
+
+        .chat-container {
+          height: 65vh;
+          min-height: 400px;
+        }
+
+        .message-content {
+          max-width: 85%;
+        }
+
+        .chat-input {
+          padding: 0.6rem 0.8rem;
+          font-size: 0.85rem;
+        }
+
+        .btn-custom {
+          padding: 0.6rem 0.8rem;
+          font-size: 0.8rem;
+          min-width: 40px;
+          height: 40px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        main {
+          padding: 0.5rem 0;
+        }
+
+        .hero-section {
+          padding: 0.75rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+          font-size: 1.3rem;
+        }
+
+        .chat-container {
+          height: 60vh;
+          min-height: 350px;
+        }
+
+        .message-content {
+          max-width: 90%;
+          padding: 0.6rem 0.8rem;
+        }
+
+        .message-avatar {
+          width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
+        }
+
+        .chat-input-container {
+          padding: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- ========================================== -->
+  <!-- BODY SECTION - Conteúdo Principal        -->
+  <!-- ========================================== -->
+  <body class="page-enter">
+    <!-- ========================================== -->
+    <!-- HERO SECTION - Seção de Apresentação     -->
+    <!-- ========================================== -->
+    <section class="hero-section fade-in-up">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1 class="section-title">
+              <i class="bi bi-chat-dots me-2"></i>Chat Completions
+            </h1>
+            <p class="section-subtitle">
+              Converse com IA avançada para obter respostas inteligentes e
+              contextualmente relevantes.
+            </p>
+            <!-- Botão Voltar -->
+            <a href="/" class="btn btn-outline-light btn-custom">
+              <i class="bi bi-arrow-left me-2"></i>Voltar ao Início
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT - Conteúdo Principal        -->
+    <!-- ========================================== -->
+    <main class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+          <!-- ========================================== -->
+          <!-- CHAT INTERFACE - Interface do Chat       -->
+          <!-- ========================================== -->
+          <div class="chat-container fade-in-up">
+            <!-- Chat Header -->
+            <div class="chat-header">
+              <i class="bi bi-robot me-2"></i>
+              <strong>Assistente de IA</strong>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+              <!-- Empty State -->
+              <div class="empty-state" id="emptyState">
+                <i class="bi bi-chat-dots"></i>
+                <h3>Bem-vindo ao Chat!</h3>
+                <p>
+                  Comece uma conversa digitando sua mensagem abaixo.<br />
+                  Estou aqui para ajudar com suas dúvidas e perguntas.
+                </p>
+              </div>
+
+              <!-- Typing Indicator (Hidden by default) -->
+              <div class="message ai" id="typingIndicator" style="display: none;">
+                <div class="message-avatar">
+                  <i class="bi bi-robot"></i>
+                </div>
+                <div class="typing-indicator">
+                  <span>IA está digitando</span>
+                  <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-container">
+              <div class="chat-input-wrapper">
+                <textarea
+                  class="chat-input"
+                  id="chatInput"
+                  placeholder="Digite sua mensagem aqui... (Pressione Enter para enviar)"
+                  rows="1"
+                ></textarea>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-custom"
+                  id="sendButton"
+                  onclick="sendMessage()"
+                  title="Enviar mensagem"
+                >
+                  <i class="bi bi-send"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION - Rodapé                  -->
+    <!-- ========================================== -->
+    <footer class="container-fluid bg-body-secondary py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p class="mb-0">
+              &copy; 2025 AI Platform. Feito com 💜 por Maycon Mancilha.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- SCRIPTS SECTION - JavaScript             -->
+    <!-- ========================================== -->
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // ========================================
+      // GLOBAL VARIABLES - Variáveis Globais
+      // ========================================
+      let chatHistory = []; // Array para armazenar histórico de mensagens
+      let isAITyping = false; // Flag para controlar estado de digitação da IA
+
+      // ========================================
+      // DOM ELEMENTS - Elementos do DOM
+      // ========================================
+      const chatMessages = document.getElementById('chatMessages');
+      const chatInput = document.getElementById('chatInput');
+      const sendButton = document.getElementById('sendButton');
+      const emptyState = document.getElementById('emptyState');
+      const typingIndicator = document.getElementById('typingIndicator');
+
+      // ========================================
+      // INITIALIZATION - Inicialização
+      // ========================================
+      document.addEventListener("DOMContentLoaded", function () {
+        const html = document.documentElement;
+        html.setAttribute("data-bs-theme", "dark");
+
+        // Configurar eventos do input
+        setupInputEvents();
+
+        // Interceptar navegação para adicionar transições de saída
+        setupNavigationTransitions();
+      });
+
+      // ========================================
+      // INPUT EVENTS - Eventos de Entrada
+      // ========================================
+      function setupInputEvents() {
+        // Auto-resize do textarea
+        chatInput.addEventListener('input', function() {
+          this.style.height = 'auto';
+          this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+
+        // Enviar com Enter (Shift+Enter para nova linha)
+        chatInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+          }
+        });
+
+        // Atualizar estado do botão de envio
+        chatInput.addEventListener('input', updateSendButtonState);
+      }
+
+      // ========================================
+      // NAVIGATION TRANSITIONS - Transições de Navegação
+      // ========================================
+      function setupNavigationTransitions() {
+        const links = document.querySelectorAll("a[href]");
+        links.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+
+            // Verificar se é um link interno da aplicação
+            if (
+              href &&
+              !href.startsWith("#") &&
+              !href.startsWith("http") &&
+              !href.includes("mailto")
+            ) {
+              e.preventDefault();
+
+              // Adicionar classe de saída
+              document.body.classList.add("page-exit");
+
+              // Navegar após a animação
+              setTimeout(() => {
+                window.location.href = href;
+              }, 500);
+            }
+          });
+        });
+      }
+
+      // ========================================
+      // CHAT FUNCTIONALITY - Funcionalidades do Chat
+      // ========================================
+
+      /**
+       * Envia uma mensagem do usuário
+       */
+      function sendMessage() {
+        const message = chatInput.value.trim();
+        
+        if (!message || isAITyping) {
+          return;
+        }
+
+        // Adicionar mensagem do usuário
+        addMessage(message, 'user');
+        
+        // Limpar input
+        chatInput.value = '';
+        chatInput.style.height = 'auto';
+        updateSendButtonState();
+
+        // Simular resposta da IA
+        simulateAIResponse(message);
+      }
+
+      /**
+       * Adiciona uma mensagem ao chat
+       * @param {string} content - Conteúdo da mensagem
+       * @param {string} sender - 'user' ou 'ai'
+       */
+      function addMessage(content, sender) {
+        // Esconder empty state se visível
+        if (emptyState.style.display !== 'none') {
+          emptyState.style.display = 'none';
+        }
+
+        // Criar elemento da mensagem
+        const messageElement = document.createElement('div');
+        messageElement.className = `message ${sender}`;
+        
+        const avatarIcon = sender === 'user' ? 'bi-person-fill' : 'bi-robot';
+        
+        messageElement.innerHTML = `
+          <div class="message-avatar">
+            <i class="bi ${avatarIcon}"></i>
+          </div>
+          <div class="message-content">
+            ${formatMessageContent(content)}
+          </div>
+        `;
+
+        // Adicionar ao chat
+        chatMessages.appendChild(messageElement);
+
+        // Adicionar ao histórico
+        chatHistory.push({
+          content: content,
+          sender: sender,
+          timestamp: new Date().toISOString()
+        });
+
+        // Scroll automático
+        scrollToBottom();
+      }
+
+      /**
+       * Formata o conteúdo da mensagem (preserva quebras de linha)
+       * @param {string} content - Conteúdo a ser formatado
+       * @returns {string} - Conteúdo formatado
+       */
+      function formatMessageContent(content) {
+        return content.replace(/\n/g, '<br>');
+      }
+
+      /**
+       * Simula resposta da IA
+       * @param {string} userMessage - Mensagem do usuário
+       */
+      function simulateAIResponse(userMessage) {
+        // Mostrar indicador de digitação
+        showTypingIndicator();
+        
+        // Simular delay de resposta (1-3 segundos)
+        const delay = Math.random() * 2000 + 1000;
+        
+        setTimeout(() => {
+          hideTypingIndicator();
+          
+          // Gerar resposta simulada
+          const aiResponse = generateSimulatedResponse(userMessage);
+          addMessage(aiResponse, 'ai');
+        }, delay);
+      }
+
+      /**
+       * Gera uma resposta simulada da IA
+       * @param {string} userMessage - Mensagem do usuário
+       * @returns {string} - Resposta simulada
+       */
+      function generateSimulatedResponse(userMessage) {
+        const responses = [
+          `Entendi sua pergunta sobre "${userMessage.substring(0, 30)}...". Esta é uma resposta simulada da IA. Em uma implementação real, aqui seria integrada uma API de IA como OpenAI GPT, Claude, ou similar.`,
+          
+          `Obrigado por sua mensagem! Atualmente estou em modo de demonstração. Para funcionalidade completa, seria necessário integrar com uma API de IA real.`,
+          
+          `Sua pergunta é interessante! Em um ambiente de produção, eu processaria sua solicitação usando modelos de linguagem avançados e forneceria respostas contextualmente relevantes.`,
+          
+          `Recebi sua mensagem: "${userMessage.substring(0, 50)}...". Esta interface está preparada para integração com APIs de IA como OpenAI, Anthropic Claude, ou outros serviços similares.`,
+          
+          `Esta é uma demonstração da interface de chat. Para implementar funcionalidade real, você pode integrar com:\n\n• OpenAI GPT API\n• Anthropic Claude API\n• Google Bard API\n• Ou qualquer outro serviço de IA conversacional`
+        ];
+        
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
+
+      /**
+       * Mostra o indicador de digitação
+       */
+      function showTypingIndicator() {
+        isAITyping = true;
+        typingIndicator.style.display = 'flex';
+        updateSendButtonState();
+        scrollToBottom();
+      }
+
+      /**
+       * Esconde o indicador de digitação
+       */
+      function hideTypingIndicator() {
+        isAITyping = false;
+        typingIndicator.style.display = 'none';
+        updateSendButtonState();
+      }
+
+      /**
+       * Atualiza o estado do botão de envio
+       */
+      function updateSendButtonState() {
+        const hasText = chatInput.value.trim().length > 0;
+        sendButton.disabled = !hasText || isAITyping;
+      }
+
+      /**
+       * Faz scroll automático para a última mensagem
+       */
+      function scrollToBottom() {
+        setTimeout(() => {
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 100);
+      }
+
+      /**
+       * Limpa todo o chat
+       */
+      function clearChat() {
+        // Confirmar ação
+        if (chatHistory.length > 0) {
+          if (!confirm('Tem certeza que deseja limpar toda a conversa?')) {
+            return;
+          }
+        }
+
+        // Limpar mensagens
+        const messages = chatMessages.querySelectorAll('.message:not(#typingIndicator)');
+        messages.forEach(message => message.remove());
+
+        // Mostrar empty state
+        emptyState.style.display = 'flex';
+
+        // Esconder typing indicator
+        hideTypingIndicator();
+
+        // Limpar histórico
+        chatHistory = [];
+
+        // Focar no input
+        chatInput.focus();
+      }
+
+      // ========================================
+      // UTILITY FUNCTIONS - Funções Utilitárias
+      // ========================================
+
+      /**
+       * Exporta o histórico do chat (para futuras integrações)
+       * @returns {Array} - Array com histórico de mensagens
+       */
+      function exportChatHistory() {
+        return chatHistory;
+      }
+
+      /**
+       * Importa histórico do chat (para futuras integrações)
+       * @param {Array} history - Array com histórico de mensagens
+       */
+      function importChatHistory(history) {
+        clearChat();
+        
+        history.forEach(message => {
+          addMessage(message.content, message.sender);
+        });
+      }
+
+      // ========================================
+      // API INTEGRATION PLACEHOLDER
+      // ========================================
+      
+      /**
+       * Placeholder para integração com API real de IA
+       * @param {string} message - Mensagem do usuário
+       * @returns {Promise<string>} - Resposta da IA
+       */
+      async function callAIAPI(message) {
+        // Exemplo de integração com OpenAI GPT
+        /*
+        try {
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: message,
+              history: chatHistory
+            })
+          });
+          
+          const data = await response.json();
+          return data.response;
+        } catch (error) {
+          console.error('Erro na API:', error);
+          return 'Desculpe, ocorreu um erro ao processar sua solicitação.';
+        }
+        */
+        
+        // Por enquanto, retorna resposta simulada
+        return generateSimulatedResponse(message);
+      }
+    </script>
+  </body>
+</html>

@@ -1,43 +1,881 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <title>STT - Whisper</title>
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="row p-3">
-                        <div class="col">
-                            <h3 class="card-title"><i class="bi bi-mic"></i> STT - Whisper</h3>
-                        </div>
-                    </div>
-                    <div class="row mt-3 mb-3 me-1">
-                        <div class="col-9">
-                            <input type="file" id="fileAudio" class="form-control" accept="audio/*">
-                        </div>
-                        <div class="col-3 row justify-content-end">
-                            <button type="button" class="btn btn-success", id="btnSubmit">
-                                <i class="bi bi-upload"></i> Upload Audio
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mt-3 mb-3 me-2 ms-2">
-                        <div class="col">
-                            <h5 class="card-body" id="responseTranscription"></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<html lang="pt-BR" data-bs-theme="dark">
+  <!-- ========================================== -->
+  <!-- HEAD SECTION - Meta tags, CSS e Título   -->
+  <!-- ========================================== -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech to Text - FrontAI</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="assets/js/stt.js"></script>
-</body>
+    <!-- Google Fonts - Tipografia Elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom Styles -->
+    <style>
+      /* ========================================== */
+      /* LAYOUT & STRUCTURE - Layout e Estrutura   */
+      /* ========================================== */
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 50%,
+          #0d0d0d 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      main {
+        flex: 1;
+        padding: 1rem 0;
+        min-height: calc(100vh - 200px);
+      }
+
+      /* ========================================== */
+      /* HERO SECTION - Seção Principal            */
+      /* ========================================== */
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.1) 0%,
+          rgba(96, 96, 96, 0.1) 100%
+        );
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #e0e0e0, #b0b0b0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .section-subtitle {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1rem;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      /* ========================================== */
+      /* CARDS & COMPONENTS - Cards e Componentes  */
+      /* ========================================== */
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        border-color: rgba(128, 128, 128, 0.3);
+      }
+
+      .card-header {
+        background: linear-gradient(
+          135deg,
+          rgba(64, 64, 64, 0.2) 0%,
+          rgba(96, 96, 96, 0.2) 100%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      .card-body {
+        padding: 1rem;
+      }
+
+      /* ========================================== */
+      /* BUTTONS - Botões                          */
+      /* ========================================== */
+      .btn-custom,
+      a.btn-custom {
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .btn-custom::before,
+      a.btn-custom::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-custom:hover::before,
+      a.btn-custom:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary.btn-custom,
+      a.btn-primary.btn-custom {
+        background: linear-gradient(135deg, #6c6c6c 0%, #4a4a4a 100%);
+        box-shadow: 0 4px 15px rgba(108, 108, 108, 0.3);
+        color: white;
+      }
+
+      .btn-primary.btn-custom:hover,
+      a.btn-primary.btn-custom:hover {
+        background: linear-gradient(135deg, #4a4a4a 0%, #333333 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(108, 108, 108, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+
+      .btn-success.btn-custom,
+      a.btn-success.btn-custom {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        color: white;
+      }
+
+      .btn-success.btn-custom:hover,
+      a.btn-success.btn-custom:hover {
+        background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+
+      .btn-outline-secondary.btn-custom,
+      a.btn-outline-secondary.btn-custom {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.8);
+        background: transparent;
+      }
+
+      .btn-outline-secondary.btn-custom:hover,
+      a.btn-outline-secondary.btn-custom:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: white;
+        transform: translateY(-1px);
+        text-decoration: none;
+      }
+
+      .btn-outline-light.btn-custom,
+      a.btn-outline-light.btn-custom {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      }
+
+      .btn-outline-light.btn-custom:hover,
+      a.btn-outline-light.btn-custom:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.6);
+        color: white;
+        transform: translateY(-1px);
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+      }
+
+      /* Estilo específico para links que devem parecer botões */
+      a.btn {
+        text-decoration: none !important;
+      }
+
+      a.btn:focus,
+      a.btn:active {
+        text-decoration: none !important;
+        outline: none;
+      }
+
+      /* ========================================== */
+      /* FORM COMPONENTS - Componentes de Formulário */
+      /* ========================================== */
+      .form-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.01em;
+      }
+
+      .form-control {
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        padding: 0.6rem 0.8rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .form-control:focus {
+        border-color: #6c6c6c;
+        box-shadow: 0 0 0 0.2rem rgba(108, 108, 108, 0.25);
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-1px);
+      }
+
+      .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+      }
+
+      /* ========================================== */
+      /* STT SPECIFIC - Específico para STT        */
+      /* ========================================== */
+      .stt-response {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 1rem;
+        min-height: 70px;
+        border: 2px dashed rgba(128, 128, 128, 0.3);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .stt-response:hover {
+        border-color: rgba(128, 128, 128, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .file-upload-area {
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+      }
+
+      .file-upload-area:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .file-upload-area.dragover {
+        border-color: #28a745;
+        background: rgba(40, 167, 69, 0.1);
+      }
+
+      /* ========================================== */
+      /* SMOOTH PAGE TRANSITIONS & ANIMATIONS      */
+      /* ========================================== */
+
+      /* Transição de entrada da página */
+      @keyframes pageEnter {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animação suave para elementos */
+      @keyframes smoothFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animação para cards */
+      @keyframes cardReveal {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      /* Transição de saída da página */
+      @keyframes pageExit {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Aplicação das animações */
+      .page-enter {
+        animation: pageEnter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+
+      .page-exit {
+        animation: pageExit 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+      }
+
+      .smooth-fade-in {
+        opacity: 0;
+        animation: smoothFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          forwards;
+      }
+
+      .card-reveal {
+        opacity: 0;
+        animation: cardReveal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      /* Manter compatibilidade com fade-in-up existente */
+      .fade-in-up {
+        animation: smoothFadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+
+      /* Hover suave para cards */
+      .card {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .card:hover {
+        transform: translateY(-0px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ========================================== */
+      /* ICONS - Ícones                           */
+      /* ========================================== */
+      .hero-section .bi {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+        opacity: 0.9;
+      }
+
+      .card-header .bi {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+        opacity: 0.9;
+      }
+
+      /* ========================================== */
+      /* FOOTER - Rodapé                          */
+      /* ========================================== */
+      footer {
+        background: rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+      }
+
+      footer p {
+        font-weight: 400;
+        font-size: 0.85rem;
+        opacity: 0.8;
+        margin: 0;
+      }
+
+      /* ========================================== */
+      /* RESPONSIVE - Responsividade               */
+      /* ========================================== */
+      @media (max-width: 768px) {
+        .hero-section {
+          padding: 1rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .section-subtitle {
+          font-size: 0.85rem;
+        }
+
+        .card-body {
+          padding: 0.75rem;
+        }
+
+        .btn-custom {
+          padding: 0.45rem 0.8rem;
+          font-size: 0.8rem;
+        }
+
+        .form-control {
+          padding: 0.5rem 0.7rem;
+          font-size: 0.85rem;
+        }
+
+        .stt-response {
+          padding: 0.75rem;
+          min-height: 60px;
+          font-size: 0.8rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        main {
+          padding: 0.5rem 0;
+        }
+
+        .hero-section {
+          padding: 0.75rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+          font-size: 1.3rem;
+        }
+
+        .hero-section .bi {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- ========================================== -->
+  <!-- BODY SECTION - Conteúdo Principal        -->
+  <!-- ========================================== -->
+  <body class="page-enter">
+    <!-- ========================================== -->
+    <!-- HERO SECTION - Seção de Apresentação     -->
+    <!-- ========================================== -->
+    <section class="hero-section fade-in-up">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1 class="section-title">
+              <i class="bi bi-mic me-2"></i>Speech to Text
+            </h1>
+            <p class="section-subtitle">
+              Converta áudio em texto com nossa tecnologia de reconhecimento de voz avançada.
+            </p>
+            <!-- Botão Voltar -->
+            <a href="/" class="btn btn-outline-light btn-custom">
+              <i class="bi bi-arrow-left me-2"></i>Voltar ao Início
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT - Conteúdo Principal        -->
+    <!-- ========================================== -->
+    <main class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+          <!-- ========================================== -->
+          <!-- STT CARD - Interface do STT               -->
+          <!-- ========================================== -->
+          <div class="card fade-in-up">
+            <div class="card-header text-center">
+              <i class="bi bi-soundwave me-2"></i>
+              <strong>Conversor de Áudio para Texto</strong>
+            </div>
+            <div class="card-body">
+              <!-- ========================================== -->
+              <!-- FILE INPUT - Entrada de Arquivo          -->
+              <!-- ========================================== -->
+              <div class="mb-3">
+                <label for="fileAudio" class="form-label">
+                  <i class="bi bi-file-earmark-music me-2"></i>Arquivo de Áudio
+                </label>
+                <div class="file-upload-area" id="fileUploadArea">
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="fileAudio"
+                    accept="audio/*"
+                    style="display: none;"
+                  />
+                  <div class="upload-content">
+                    <i class="bi bi-cloud-upload fs-2 mb-2 text-muted"></i>
+                    <p class="mb-2">
+                      <strong>Clique para selecionar</strong> ou arraste um arquivo de áudio
+                    </p>
+                    <small class="text-muted">
+                      Formatos suportados: MP3, WAV, M4A, OGG
+                    </small>
+                  </div>
+                </div>
+                <div class="mt-2" id="fileInfo" style="display: none;">
+                  <small class="text-muted">
+                    <i class="bi bi-file-earmark me-1"></i>
+                    <span id="fileName"></span>
+                  </small>
+                </div>
+              </div>
+
+              <!-- ========================================== -->
+              <!-- STT RESPONSE - Área de Resposta          -->
+              <!-- ========================================== -->
+              <div class="mb-3">
+                <label class="form-label">
+                  <i class="bi bi-file-text me-2"></i>Texto Transcrito
+                </label>
+                <div class="stt-response" id="sttResponse">
+                  <p class="text-muted mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    O texto transcrito aparecerá aqui...
+                  </p>
+                </div>
+              </div>
+
+              <!-- ========================================== -->
+              <!-- ACTION BUTTONS - Botões de Ação          -->
+              <!-- ========================================== -->
+              <div class="d-flex gap-2 justify-content-center flex-wrap">
+                <button
+                  type="button"
+                  class="btn btn-success btn-custom"
+                  onclick="uploadAudio()"
+                  id="btnSubmit"
+                >
+                  <i class="bi bi-upload me-2"></i>Transcrever Áudio
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-custom"
+                  onclick="clearAll()"
+                >
+                  <i class="bi bi-trash me-2"></i>Limpar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-custom"
+                  onclick="copyText()"
+                  id="copyBtn"
+                  style="display: none"
+                >
+                  <i class="bi bi-clipboard me-2"></i>Copiar Texto
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- FOOTER SECTION - Rodapé                  -->
+    <!-- ========================================== -->
+    <footer class="container-fluid bg-body-secondary py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p class="mb-0">
+              &copy; 2025 AI Platform. Feito com 💜 por Maycon Mancilha.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- SCRIPTS SECTION - JavaScript             -->
+    <!-- ========================================== -->
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // ========================================
+      // SMOOTH PAGE TRANSITIONS & ANIMATIONS
+      // ========================================
+      document.addEventListener("DOMContentLoaded", function () {
+        const html = document.documentElement;
+        html.setAttribute("data-bs-theme", "dark");
+
+        // Animações suaves para elementos fade-in
+        const fadeElements = document.querySelectorAll(
+          ".smooth-fade-in, .fade-in-up"
+        );
+        fadeElements.forEach((el, index) => {
+          el.style.animationDelay = `${index * 0.06}s`;
+        });
+
+        // Interceptar navegação para adicionar transições de saída
+        const links = document.querySelectorAll("a[href]");
+        links.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+
+            // Verificar se é um link interno da aplicação
+            if (
+              href &&
+              !href.startsWith("#") &&
+              !href.startsWith("http") &&
+              !href.includes("mailto")
+            ) {
+              e.preventDefault();
+
+              // Adicionar classe de saída
+              document.body.classList.add("page-exit");
+
+              // Navegar após a animação
+              setTimeout(() => {
+                window.location.href = href;
+              }, 500);
+            }
+          });
+        });
+      });
+
+      // ========================================
+      // STT FUNCTIONALITY - Funcionalidade STT
+      // ========================================
+      let selectedFile = null;
+
+      // Elementos do DOM
+      const fileInput = document.getElementById("fileAudio");
+      const fileUploadArea = document.getElementById("fileUploadArea");
+      const fileInfo = document.getElementById("fileInfo");
+      const fileName = document.getElementById("fileName");
+      const sttResponse = document.getElementById("sttResponse");
+      const btnSubmit = document.getElementById("btnSubmit");
+      const copyBtn = document.getElementById("copyBtn");
+
+      // Event listeners para upload de arquivo
+      fileUploadArea.addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", handleFileSelect);
+
+      // Drag and drop functionality
+      fileUploadArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.add("dragover");
+      });
+
+      fileUploadArea.addEventListener("dragleave", () => {
+        fileUploadArea.classList.remove("dragover");
+      });
+
+      fileUploadArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.remove("dragover");
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          const file = files[0];
+          if (file.type.startsWith("audio/")) {
+            fileInput.files = files;
+            handleFileSelect();
+          } else {
+            showError("Por favor, selecione um arquivo de áudio válido.");
+          }
+        }
+      });
+
+      function handleFileSelect() {
+        const file = fileInput.files[0];
+        if (file) {
+          selectedFile = file;
+          fileName.textContent = file.name;
+          fileInfo.style.display = "block";
+          btnSubmit.disabled = false;
+        }
+      }
+
+      function uploadAudio() {
+        if (!selectedFile) {
+          showError("Por favor, selecione um arquivo de áudio primeiro.");
+          return;
+        }
+
+        // Mostrar loading
+        btnSubmit.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processando...';
+        btnSubmit.disabled = true;
+
+        const formData = new FormData();
+        formData.append("audio", selectedFile);
+
+        fetch("/stt", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              showTranscription(data.transcription);
+            } else {
+              showError(data.error || "Erro ao processar o áudio.");
+            }
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            showError("Erro de conexão. Tente novamente.");
+          })
+          .finally(() => {
+            // Restaurar botão
+            btnSubmit.innerHTML = '<i class="bi bi-upload me-2"></i>Transcrever Áudio';
+            btnSubmit.disabled = false;
+          });
+      }
+
+      function showTranscription(text) {
+        sttResponse.innerHTML = `
+          <div class="d-flex align-items-start">
+            <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+            <div class="flex-grow-1">
+              <strong class="text-success">Transcrição concluída:</strong>
+              <p class="mt-2 mb-0">${text}</p>
+            </div>
+          </div>
+        `;
+        copyBtn.style.display = "inline-flex";
+      }
+
+      function showError(message) {
+        sttResponse.innerHTML = `
+          <div class="d-flex align-items-center">
+            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+            <span class="text-warning">${message}</span>
+          </div>
+        `;
+      }
+
+      function clearAll() {
+        selectedFile = null;
+        fileInput.value = "";
+        fileInfo.style.display = "none";
+        copyBtn.style.display = "none";
+        sttResponse.innerHTML = `
+          <p class="text-muted mb-0">
+            <i class="bi bi-info-circle me-2"></i>
+            O texto transcrito aparecerá aqui...
+          </p>
+        `;
+        btnSubmit.disabled = false;
+      }
+
+      function copyText() {
+        const textContent = sttResponse.textContent.replace("Transcrição concluída:", "").trim();
+        
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(textContent).then(() => {
+            // Feedback visual
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="bi bi-check me-2"></i>Copiado!';
+            copyBtn.classList.add("btn-success");
+            copyBtn.classList.remove("btn-outline-secondary");
+            
+            setTimeout(() => {
+              copyBtn.innerHTML = originalText;
+              copyBtn.classList.remove("btn-success");
+              copyBtn.classList.add("btn-outline-secondary");
+            }, 2000);
+          });
+        } else {
+          // Fallback para navegadores mais antigos
+          const textArea = document.createElement("textarea");
+          textArea.value = textContent;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+          
+          // Feedback visual
+          const originalText = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<i class="bi bi-check me-2"></i>Copiado!';
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+          }, 2000);
+        }
+      }
+    </script>
+  </body>
 </html>
